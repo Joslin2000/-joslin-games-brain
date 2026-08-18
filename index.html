@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RECALL — Return to the Present</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #07100f;
+  color: #f4f7f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 620px;
+  margin: auto;
+  padding: 22px 18px 40px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 4px;
+  font-size: 18px;
+}
+
+.status {
+  font-size: 12px;
+  color: #8ea29c;
+}
+
+.hero {
+  text-align: center;
+  padding: 55px 12px 30px;
+}
+
+.orb {
+  width: 90px;
+  height: 90px;
+  margin: auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      #dfffea,
+      #6dd9aa 25%,
+      #193d31 62%,
+      transparent 70%
+    );
+  box-shadow: 0 0 55px #55d49a55;
+}
+
+h1 {
+  font-size: 42px;
+  letter-spacing: 8px;
+  margin: 24px 0 10px;
+}
+
+.tagline {
+  color: #9aaca6;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.card {
+  background: #101b19;
+  border: 1px solid #263b36;
+  border-radius: 24px;
+  padding: 20px;
+  margin-top: 14px;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 21px;
+}
+
+.card p {
+  margin: 0 0 18px;
+  color: #99aaa5;
+  line-height: 1.5;
+}
+
+button {
+  width: 100%;
+  padding: 17px;
+  border: 1px solid #304740;
+  border-radius: 16px;
+  background: #15231f;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+.primary {
+  background: #dfffea;
+  color: #07100f;
+  border: 0;
+}
+
+.screen {
+  display: none;
+}
+
+.back {
+  background: transparent;
+  border-color: #263b36;
+  color: #9aaca6;
+}
+
+.timer {
+  text-align: center;
+  font-size: 58px;
+  font-weight: 300;
+  margin: 30px 0 10px;
+}
+
+.prompt {
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 20px 0;
+  color: #e7efeb;
+}
+
+.bar {
+  height: 7px;
+  background: #263b36;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  width: 0;
+  background: #6dd9aa;
+  transition: width 1s;
+}
+
+.feelings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.feelings button {
+  margin: 0;
+}
+
+.message {
+  text-align: center;
+  color: #b8c8c3;
+  line-height: 1.6;
+  padding: 20px 5px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180px;
+  background: #0a1412;
+  color: white;
+  border: 1px solid #304740;
+  border-radius: 16px;
+  padding: 15px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.small {
+  font-size: 12px;
+  color: #71847e;
+  text-align: center;
+  margin-top: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">RECALL</div>
+  <div class="status">PRIVATE • YOUR SPACE</div>
+</header>
+
+<section id="home">
+
+<div class="hero">
+
+<div class="orb"></div>
+
+<h1>RECALL</h1>
+
+<div class="tagline">
+You made it through the mission.<br>
+<b>Now come back to the present.</b>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>I'm Overwhelmed</h2>
+
+<p>
+A short guided reset for moments when everything feels like too much.
+</p>
+
+<button class="primary" onclick="grounding()">
+START 60-SECOND RESET
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Ground Me</h2>
+
+<p>
+Slow down. Notice where you are. Reconnect with the present moment.
+</p>
+
+<button onclick="grounding()">
+GROUNDING EXERCISE
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>What Am I Feeling?</h2>
+
+<p>
+You don't need the perfect words. Start with what feels closest.
+</p>
+
+<button onclick="feelings()">
+CHECK IN
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>My Space</h2>
+
+<p>
+Create a private place for words that help you feel steady.
+</p>
+
+<button onclick="space()">
+OPEN MY SPACE
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Journal</h2>
+
+<p>
+Write privately. No judgment. No score.
+</p>
+
+<button onclick="journal()">
+OPEN JOURNAL
+</button>
+
+</div>
+
+<div class="small">
+RECALL is a wellness and grounding tool, not a replacement for professional care.
+</div>
+
+</section>
+
+
+<section id="grounding" class="screen">
+
+<div class="card">
+
+<div class="timer" id="timer">60</div>
+
+<div class="bar">
+<div class="fill" id="fill"></div>
+</div>
+
+<div class="prompt" id="prompt">
+Take a slow breath. You are here, right now.
+</div>
+
+<div class="message">
+
+Look around you.
+
+Notice the room.
+
+Feel your feet on the ground.
+
+There is no mission to complete right now.
+
+</div>
+
+<button class="back" onclick="home()">
+RETURN HOME
+</button>
+
+</div>
+
+</section>
+
+
+<section id="feelings" class="screen">
+
+<div class="card">
+
+<h2>What feels closest right now?</h2>
+
+<p>
+There is no right answer.
+</p>
+
+<div class="feelings">
+
+<button onclick="feeling('Overwhelmed')">
+Overwhelmed
+</button>
+
+<button onclick="feeling('Anxious')">
+Anxious
+</button>
+
+<button onclick="feeling('Angry')">
+Angry
+</button>
+
+<button onclick="feeling('Numb')">
+Numb
+</button>
+
+<button onclick="feeling('Guilty')">
+Guilty
+</button>
+
+<button onclick="feeling('Restless')">
+Restless
+</button>
+
+</div>
+
+<div class="message" id="feelingMessage"></div>
+
+<button class="back" onclick="home()">
+RETURN HOME
+</button>
+
+</div>
+
+</section>
+
+
+<section id="space" class="screen">
+
+<div class="card">
+
+<h2>My Space</h2>
+
+<p>
+Write something you want to remember when things feel difficult.
+</p>
+
+<textarea
+id="spaceText"
+placeholder="A person, place, memory, sentence, or reminder..."
+></textarea>
+
+<button class="primary" onclick="saveSpace()">
+SAVE TO MY SPACE
+</button>
+
+<div class="message" id="spaceMessage"></div>
+
+<button class="back" onclick="home()">
+RETURN HOME
+</button>
+
+</div>
+
+</section>
+
+
+<section id="journal" class="screen">
+
+<div class="card">
+
+<h2>Private Journal</h2>
+
+<p>
+Put the words somewhere outside your head.
+</p>
+
+<textarea
+id="journalText"
+placeholder="Write whatever you need..."
+></textarea>
+
+<button class="primary" onclick="saveJournal()">
+SAVE ENTRY ON THIS DEVICE
+</button>
+
+<div class="message" id="journalMessage"></div>
+
+<button class="back" onclick="home()">
+RETURN HOME
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+let timerId;
+
+const screens = [
+  "home",
+  "grounding",
+  "feelings",
+  "space",
+  "journal"
+];
+
+function show(id) {
+
+  screens.forEach(function(x) {
+
+    document.getElementById(x).style.display =
+      x === id ? "block" : "none";
+
+  });
+
+}
+
+function home() {
+
+  clearInterval(timerId);
+
+  show("home");
+
+}
+
+function grounding() {
+
+  show("grounding");
+
+  let seconds = 60;
+
+  timer.textContent = seconds;
+
+  fill.style.width = "0%";
+
+  const prompts = [
+
+    "Take a slow breath. You are here, right now.",
+
+    "Notice 5 things you can see.",
+
+    "Notice 4 things you can touch.",
+
+    "Notice 3 sounds around you.",
+
+    "Notice 2 things you can smell.",
+
+    "Notice 1 thing you can taste or imagine tasting.",
+
+    "Take one more slow breath. You are in the present."
+
+  ];
+
+  let p = 0;
+
+  prompt.textContent = prompts[0];
+
+  clearInterval(timerId);
+
+  timerId = setInterval(function() {
+
+    seconds--;
+
+    timer.textContent = seconds;
+
+    fill.style.width =
+      ((60 - seconds) / 60 * 100) + "%";
+
+    if (
+      seconds % 9 === 0 &&
+      p < prompts.length - 1
+    ) {
+
+      p++;
+
+      prompt.textContent = prompts[p];
+
+    }
+
+    if (seconds <= 0) {
+
+      clearInterval(timerId);
+
+      prompt.textContent =
+        "You made it through the reset. Take your time.";
+
+      timer.textContent = "✓";
+
+    }
+
+  }, 1000);
+
+}
+
+function feelings() {
+
+  show("feelings");
+
+}
+
+function feeling(x) {
+
+  document.getElementById("feelingMessage").textContent =
+    "You noticed: " +
+    x +
+    ". Take a breath. You do not have to solve everything right now.";
+
+}
+
+function space() {
+
+  show("space");
+
+  document.getElementById("spaceText").value =
+    localStorage.getItem("recallSpace") || "";
+
+}
+
+function saveSpace() {
+
+  localStorage.setItem(
+    "recallSpace",
+    document.getElementById("spaceText").value
+  );
+
+  document.getElementById("spaceMessage").textContent =
+    "Saved privately on this device.";
+
+}
+
+function journal() {
+
+  show("journal");
+
+}
+
+function saveJournal() {
+
+  const text =
+    document.getElementById("journalText").value;
+
+  if (text.trim()) {
+
+    localStorage.setItem(
+      "recallJournal",
+      text
+    );
+
+    document.getElementById("journalMessage").textContent =
+      "Entry saved privately on this device.";
+
+  } else {
+
+    document.getElementById("journalMessage").textContent =
+      "Write something first.";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
